@@ -38,9 +38,15 @@ export class SigninService {
         token: jwt.sign({ id: user.id }, JWT_SECRET),
       };
     } catch (e) {
-      throw new CustomHttpException(e, {
-        EN: 'Signin error',
-      });
+      throw new CustomHttpException(e, { EN: 'Incorrect login or password' });
     }
+  }
+
+  public async getUserByName(name: string): Promise<User> {
+    return this.connection
+      .getRepository(User)
+      .createQueryBuilder('user')
+      .where('user.firstName = :name', { name })
+      .getOne();
   }
 }
