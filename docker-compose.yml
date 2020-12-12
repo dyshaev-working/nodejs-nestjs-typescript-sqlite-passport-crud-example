@@ -7,7 +7,7 @@ services:
     volumes:
       - "./:/app"
     links:
-      - postgres
+      - sqlite
     ports:
       - 3000:3000
 
@@ -18,17 +18,17 @@ services:
     volumes:
       - "./:/app"
     links:
-      - postgres
+      - sqlite
     command: npm run migrate:up
 
-  postgres:
-    image: postgres:latest
+  sqlite:
+    image: nouchka/sqlite3:latest
     volumes:
-      - ./database:/var/lib/postgresql/data
+      - ./database:/var/lib/sqlite/data
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - SQLITE_USER=sqlite
+      - SQLITE_PASSWORD=sqlite
+      - SQLITE_DB=sqlite
     ports:
       - 5432:5432
 
@@ -37,5 +37,5 @@ services:
       dockerfile: Dockerfile
       context: .
     links:
-      - postgres
+      - sqlite
     command: npm run migrate:up
