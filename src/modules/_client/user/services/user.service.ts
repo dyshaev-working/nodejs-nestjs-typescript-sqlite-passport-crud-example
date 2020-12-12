@@ -7,7 +7,9 @@ import { UpdateUserRequestDto } from '../dto/request/updateUser.dto';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly connection: Connection) {}
+  constructor(
+    private readonly connection: Connection,
+  ) {}
 
   public async getUserById(id: number): Promise<User> {
     try {
